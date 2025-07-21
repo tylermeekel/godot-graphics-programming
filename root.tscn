@@ -1,15 +1,15 @@
 [gd_scene load_steps=7 format=3 uid="uid://cc2r7bth6lwev"]
 
 [ext_resource type="Script" uid="uid://cbsaqc2ufh82c" path="res://scripts/root.gd" id="1_vvh5c"]
-[ext_resource type="Script" uid="uid://qjdutospubqo" path="res://scripts/pixelate.gd" id="2_vvh5c"]
+[ext_resource type="Script" uid="uid://cnt84a8lnl86k" path="res://scripts/vignette.gd" id="2_vvh5c"]
 [ext_resource type="Texture2D" uid="uid://d34yrna55fd1m" path="res://assets/field.jpg" id="3_vvh5c"]
 
 [sub_resource type="Environment" id="Environment_pyidc"]
 background_mode = 3
-background_canvas_max_layer = 1
+background_canvas_max_layer = 4
 adjustment_enabled = true
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_28aoi"]
+[sub_resource type="CompositorEffect" id="CompositorEffect_vvh5c"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
@@ -17,10 +17,10 @@ effect_callback_type = 4
 needs_motion_vectors = false
 needs_normal_roughness = false
 script = ExtResource("2_vvh5c")
-metadata/_custom_type_script = "uid://qjdutospubqo"
+metadata/_custom_type_script = "uid://cnt84a8lnl86k"
 
 [sub_resource type="Compositor" id="Compositor_vvh5c"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_28aoi")])
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_vvh5c")])
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_vvh5c")
