@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cc2r7bth6lwev"]
+
+[ext_resource type="Script" uid="uid://cbsaqc2ufh82c" path="res://scripts/root.gd" id="1_vvh5c"]
+[ext_resource type="Texture2D" uid="uid://c8kc3ty757qp6" path="res://icon.svg" id="2_pyidc"]
+[ext_resource type="Script" uid="uid://dlihoixqy23ds" path="res://scripts/color_correct.gd" id="2_vvh5c"]
+
+[sub_resource type="Environment" id="Environment_pyidc"]
+background_mode = 3
+adjustment_enabled = true
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_28aoi"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("2_vvh5c")
+color_r = 0.13
+color_g = 1.0
+color_b = 1.0
+color_a = 1.0
+metadata/_custom_type_script = "uid://dlihoixqy23ds"
+
+[sub_resource type="Compositor" id="Compositor_vvh5c"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_28aoi")])
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_vvh5c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(579, 299)
+texture = ExtResource("2_pyidc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_pyidc")
+compositor = SubResource("Compositor_vvh5c")
