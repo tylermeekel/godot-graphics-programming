@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://biyfsd8tcal86"
+path="res://.godot/imported/color_adjust.glsl-532c6f1ad9e716f118e4b958b7fbc9e9.res"
+
+[deps]
+
+source_file="res://shaders/color_adjust.glsl"
+dest_files=["res://.godot/imported/color_adjust.glsl-532c6f1ad9e716f118e4b958b7fbc9e9.res"]
+
+[params]
+
