@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://ccarfmaj4jkvs"
+path="res://.godot/imported/sobel_edge_detection.glsl-698b68fcb88060027e4be126fcaf2894.res"
+
+[deps]
+
+source_file="res://shaders/sobel_edge_detection.glsl"
+dest_files=["res://.godot/imported/sobel_edge_detection.glsl-698b68fcb88060027e4be126fcaf2894.res"]
+
+[params]
+

@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://c2j5mqi1i27rp"
+path="res://.godot/imported/difference_of_gaussians.glsl-d7c2d5c0cff0ed53253e947f7235431a.res"
+
+[deps]
+
+source_file="res://shaders/difference_of_gaussians.glsl"
+dest_files=["res://.godot/imported/difference_of_gaussians.glsl-d7c2d5c0cff0ed53253e947f7235431a.res"]
+
+[params]
+
