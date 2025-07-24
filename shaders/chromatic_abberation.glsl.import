@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://bggqwmuipynel"
+path="res://.godot/imported/chromatic_abberation.glsl-5229daa13a610d83c41b7b8290d6748b.res"
+
+[deps]
+
+source_file="res://shaders/chromatic_abberation.glsl"
+dest_files=["res://.godot/imported/chromatic_abberation.glsl-5229daa13a610d83c41b7b8290d6748b.res"]
+
+[params]
+

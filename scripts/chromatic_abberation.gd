@@ -1,10 +1,10 @@
 @tool
 extends CompositorEffect
-class_name DifferenceOfGaussiansShader
+class_name ChromaticAbberationShader
 
-@export_range(0.1, 5.0) var sigma_1: float = 0.5
-@export_range(0.1, 5.0) var sigma_2: float = 2.0
-@export_range(0.0, 1.0) var threshold: float = 0.3
+@export var r_offset: int = 1
+@export var g_offset: int = 2
+@export var b_offset: int = 3
 
 var mutex: Mutex = Mutex.new()
 var shader_is_dirty: bool = true
@@ -28,7 +28,7 @@ func _initialize_compute() -> void:
 	if not rd:
 		return
 	
-	var shader_file: RDShaderFile = load("res://shaders/difference_of_gaussians.glsl")
+	var shader_file: RDShaderFile = load("res://shaders/chromatic_abberation.glsl")
 	var shader_spirv = shader_file.get_spirv()
 	shader = rd.shader_create_from_spirv(shader_spirv)
 	
@@ -54,17 +54,18 @@ func _render_callback(p_effect_callback_type: int, render_data: RenderData) -> v
 				0.0
 			])
 			
-			var sigma_values: PackedFloat32Array = PackedFloat32Array([
-				sigma_1,
-				sigma_2,
-				threshold
+			var offset_values: PackedInt32Array = PackedInt32Array([
+				r_offset,
+				g_offset,
+				b_offset
 			])
-			var sigma_bytes = sigma_values.to_byte_array()
-			var sigma_buffer := rd.storage_buffer_create(sigma_bytes.size(), sigma_bytes)
+			var offset_bytes = offset_values.to_byte_array()
+			var offset_buffer := rd.storage_buffer_create(offset_bytes.size(), offset_bytes)
 			
 			var view_count = render_scene_buffers.get_view_count()
 			for view in range(view_count):
 				var input_image = render_scene_buffers.get_color_layer(view)
+				
 				
 				var image_uniform: RDUniform = RDUniform.new()
 				image_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
@@ -72,16 +73,16 @@ func _render_callback(p_effect_callback_type: int, render_data: RenderData) -> v
 				image_uniform.add_id(input_image)
 				var image_uniform_set = UniformSetCacheRD.get_cache(shader, 0, [image_uniform])
 				
-				var sigma_uniform: RDUniform = RDUniform.new()
-				sigma_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
-				sigma_uniform.binding = 0
-				sigma_uniform.add_id(sigma_buffer)
-				var sigma_uniform_set = UniformSetCacheRD.get_cache(shader, 1, [sigma_uniform])
+				var offset_uniform: RDUniform = RDUniform.new()
+				offset_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
+				offset_uniform.binding = 0
+				offset_uniform.add_id(offset_buffer)
+				var offset_uniform_set = UniformSetCacheRD.get_cache(shader, 1, [offset_uniform])
 				
 				var compute_list := rd.compute_list_begin()
 				rd.compute_list_bind_compute_pipeline(compute_list, pipeline)
 				rd.compute_list_bind_uniform_set(compute_list, image_uniform_set, 0)
-				rd.compute_list_bind_uniform_set(compute_list, sigma_uniform_set, 1)
+				rd.compute_list_bind_uniform_set(compute_list, offset_uniform_set, 1)
 				rd.compute_list_set_push_constant(compute_list, push_constant.to_byte_array(), push_constant.size() * 4)
 				rd.compute_list_dispatch(compute_list, x_groups, y_groups, z_groups)
 				rd.compute_list_end()

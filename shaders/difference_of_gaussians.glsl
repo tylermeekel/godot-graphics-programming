@@ -7,6 +7,7 @@ layout(rgba16f, set = 0, binding = 0) uniform image2D color_image;
 layout(set = 1, binding = 0) restrict buffer SigmaBuffer {
     float sigma1;
     float sigma2;
+    float threshold;
 } sigma_buffer;
 
 layout(push_constant, std430) uniform Params {
@@ -51,11 +52,9 @@ void main() {
         vec3 blur2 = gaussianBlur(xy, sigma_buffer.sigma2);
 
         vec3 dog = blur2 - blur1;
-
-        float threshold = 0.2;
         float edgeIntensity = length(dog);
 
-        if (edgeIntensity > threshold) {
+        if (edgeIntensity > sigma_buffer.threshold) {
             imageStore(color_image, xy, vec4(1));
         } else {
             imageStore(color_image, xy, vec4(vec3(0.0), 1.0));
