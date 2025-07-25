@@ -95,3 +95,5 @@ func _render_callback(p_effect_callback_type: int, render_data: RenderData) -> v
 				rd.compute_list_set_push_constant(compute_list, push_constant.to_byte_array(), push_constant.size() * 4)
 				rd.compute_list_dispatch(compute_list, x_groups, y_groups, z_groups)
 				rd.compute_list_end()
+				
+				rd.free_rid(storage_image)
